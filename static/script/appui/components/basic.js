@@ -20,35 +20,36 @@ require.def("basicapp/appui/components/basic",
 
     			this._super("basic_component");
 
-                pageLayout = new VerticalList();
+                this.pageLayout = new VerticalList();
 
-                header = new Header();
+                this.header = new Header();
 
-                pageLayout.appendChildWidget(header);
+                this.pageLayout.appendChildWidget(this.header);
 
-                carousel = new TheCarousel({ id: 'testCarousel' });
+                this.carousel = new TheCarousel({ id: 'testCarousel' });
 
-                pageLayout.appendChildWidget(carousel);                
+                this.pageLayout.appendChildWidget(this.carousel);
 
-                this.appendChildWidget(pageLayout);
+                //this.appendChildWidget(pageLayout);
 
-                console.log(header.isFocusable());
-
-                pageLayout.setActiveChildWidget(header);
-
-
+                console.log(this.header.isFocusable());
 
                 var handler = new ActivateFirstHandler();
-                handler.attach(carousel);
+                handler.attach(this.carousel);
 
 
 
                 this.addEventListener("aftershow", function appReady() {
                     self.getCurrentApplication().ready();
                     self.removeEventListener('aftershow', appReady);
+                    self.header.focus();
                 });
 
-                pageLayout.addEventListener("keyup", function(evt) { 
+                this.addEventListener("beforerender", function(ev) {
+                    self._onBeforeRender(ev);
+                });
+
+                this.pageLayout.addEventListener("keyup", function(evt) {
                     console.log("PageLayout Key Event");
                     pageLayout.setActiveChildWidget(header);
 
@@ -57,7 +58,11 @@ require.def("basicapp/appui/components/basic",
                     }
                 });
 
-    		}
+    		},
+
+            _onBeforeRender: function(ev) {
+               this.appendChildWidget(this.pageLayout);
+            }
 
     	});
 

@@ -33,12 +33,12 @@ require.def("basicapp/appui/parts/header",
 				btn4.appendChildWidget(label4);
 
 
-				horizontalList.appendChildWidget(btn1);
-				horizontalList.appendChildWidget(btn2);
-				horizontalList.appendChildWidget(btn3);
-				horizontalList.appendChildWidget(btn4);
+                this.appendChildWidget(horizontalList);
 
-				this.appendChildWidget(horizontalList);
+                horizontalList.appendChildWidget(btn1);
+                horizontalList.appendChildWidget(btn2);
+                horizontalList.appendChildWidget(btn3);
+				horizontalList.appendChildWidget(btn4);
 
 				return this;
 			}
